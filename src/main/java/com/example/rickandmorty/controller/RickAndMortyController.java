@@ -3,6 +3,7 @@ package com.example.rickandmorty.controller;
 import com.example.rickandmorty.client.RickAndMortyClient;
 import com.example.rickandmorty.response.CharacterResponse;
 import com.example.rickandmorty.response.EpisodeResponse;
+import com.example.rickandmorty.response.ListOfEpisodesResponse;
 import com.example.rickandmorty.response.LocationResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.cglib.core.Local;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.management.monitor.MonitorNotification;
@@ -34,5 +36,10 @@ public class RickAndMortyController {
     @GetMapping("/episode/{id}")
     public Mono<EpisodeResponse> getEpisodeById(@PathVariable String id) {
         return rickAndMortyClient.findEpisodeByID(id);
+    }
+
+    @GetMapping("/episodes/")
+    public Flux<ListOfEpisodesResponse> getAllEpisodes() {
+        return rickAndMortyClient.getAllEpisodes();
     }
 }
